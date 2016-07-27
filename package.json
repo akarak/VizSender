@@ -1,8 +1,8 @@
 {
   "name": "VizSender",
-  "version": "0.0.3",
-  "description": "Simple cli",
-  "main": "viz.js",
+  "version": "0.0.4",
+  "description": "Simple cli for VizRT engine",
+  "main": "start.js",
   "dependencies": {
     "net": "1.0.1",
     "readline": "0.0.3",
