@@ -1,0 +1,22 @@
+﻿<vizsend.window title="Clock adjust" columns=3>
+    <connect host=172.20.69.14 port=6100>
+
+    <button name="reset" col=1>
+        <cmd>RENDERER*MAP SET_STRING_ELEMENT control reset|AEA9F339-948C-585A</cmd>
+    </button>
+
+    <button name="on" col=2>
+        <cmd>RENDERER*MAP SET_STRING_ELEMENT control anim counter 1</cmd>
+    </button>
+
+    <button name="off" col=3>
+        <cmd>RENDERER*MAP SET_STRING_ELEMENT control anim counter 0</cmd>
+    </button>
+
+    <button name="poll on" col=2>
+        <cmd>RENDERER*MAP SET_STRING_ELEMENT control anim|pollbug|1</cmd>
+    </button>
+
+    <button name="poll off" col=3>
+        <cmd>RENDERER*MAP SET_STRING_ELEMENT control anim|pollbug|0</cmd>
+    </button>
