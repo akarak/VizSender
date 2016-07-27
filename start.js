@@ -3,14 +3,14 @@
  */
 var readline = require('readline');
 var rl;
-var init = require('./config.js');
-var config = init.Config;
+var config = require('./config');
+var viz = require('./viz');
 
 var app = require('http').createServer(handler)
     , io = require('socket.io').listen(app, {log: false})
     , fs = require('fs');
 
-var portNo = 7788;
+var portNo = config.chatserver.port
 
 app.listen(portNo);
 
@@ -36,7 +36,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 console.log('Opening viz...');
-var viz = init.Viz;
+viz.ip = config.engine.viz;
 viz.open();
 
 console.log('Opening command line...');
@@ -49,7 +49,7 @@ rl.setPrompt('> ');
  })
 
  */
-console.log('\nBrowse to port ' + portNo);
+console.log('\x1b[31m\nBrowse to port \x1b[37m' + portNo);
 console.log('\nWaiting for commands...("quit" to exit)');
 
 rl.on('line', function(cmd) {
