@@ -11,22 +11,22 @@ var Config =  {
 
     // target viz configuration
     engine: {
-        viz: '172.20.222.58',
+        viz: '172.20.69.14',
         vport: 6100,
-        trio: '172.20.69.17',
+        trio: '10.65.4.96',
         tport: 6200
     },
 
     // chat socket configuration
     chatserver: {
-        ip: '172.20.69.17',
+        ip: '10.65.4.96',
         port: 7788
     }
 }
 
 var Viz = {
 
-    ip: '172.20.222.58',
+    ip: '172.20.69.14',
     port: 6100,
     replies: true,
     quiet: false,

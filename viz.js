@@ -15,11 +15,11 @@ var portNo = 7788;
 app.listen(portNo);
 
 function handler (req, res) {
-    fs.readFile(__dirname + '/index.html',
+    fs.readFile(__dirname + '/public' +  '/indexTest.html',
         function (err, data) {
             if (err) {
                 res.writeHead(500);
-                return res.end('Error loading index.html');
+                return res.end('Error loading indexTest.html');
             }
 
             res.writeHead(200);
@@ -35,11 +35,11 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
+console.log('Opening viz...');
 var viz = init.Viz;
 viz.open();
 
 console.log('Opening command line...');
-
 rl = readline.createInterface(process.stdin, process.stdout, null);
 rl.setPrompt('> ');
 /*
