@@ -3,21 +3,21 @@
  */
 /*!
  * configuration data
- * use a local config file
+ * these are example numbers - use a local config file
  * this is in .gitignore
  */
 
 module.exports = {
     // target viz configuration
     engine: {
-        viz: '172.20.69.14',
+        viz: '192.168.1.23',
         vport: 6100,
-        trio: '10.65.4.96',
+        trio: '192.168.1.24',
         tport: 6200
     },
 
 // chat socket configuration
     chatserver: {
-        port: 7788
+        port: 3456
     }
 }
