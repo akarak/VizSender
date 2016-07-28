@@ -1,8 +1,8 @@
 var net = require('net');
 
+// set viz ip in config file
 var Viz = {
-
-    ip: '172.20.69.14',
+    ip: '1.2.3.4',
     port: 6100,
     replies: true,
     quiet: false,
