@@ -97,7 +97,7 @@ var Viz = {
         this.live = false;
         this.socket.destroy();
     }
-}
+};
 
 function dlog(data) {
     if (Viz.logging > 0) {
