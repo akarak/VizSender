@@ -1,94 +1,108 @@
-/**
- * Created by Mortoni on 19/11/13.
- */
-var readline = require('readline');
-var rl;
-var init = require('./config.js');
-var config = init.Config;
+var net = require('net');
 
-var app = require('http').createServer(handler)
-    , io = require('socket.io').listen(app, {log: false})
-    , fs = require('fs');
+var Viz = {
 
-var portNo = 7788;
+    ip: '172.20.69.14',
+    port: 6100,
+    replies: true,
+    quiet: false,
+    live: true,
+    counter: 0,
+    logging: 1,
+    socket: 0,
 
-app.listen(portNo);
+    open: function() {
+        dlog('Opening a port to Viz...' + this.ip + ", " + this.port);
 
-function handler (req, res) {
-    fs.readFile(__dirname + '/index.html',
-        function (err, data) {
-            if (err) {
-                res.writeHead(500);
-                return res.end('Error loading index.html');
-            }
+        var _this = this;
 
-            res.writeHead(200);
-            res.end(data);
+        this.socket = net.connect({host: this.ip, port: this.port},
+            function() { //'connect' listener
+                _this.live = true;
+                dlog('client open');
+            });
+
+        this.socket.on('data', function(data) {
+            dlog('received: ' + data);
         });
+
+        this.socket.on('end', function() {
+            this.live = false;
+            dlog('client ended');
+        });
+
+        this.socket.on('close', function() {
+            this.live = false;
+            dlog('client closed');
+        });
+
+        this.socket.on('timeout', function() {
+            dlog('client timed out');
+        });
+
+        this.socket.on('error', function() {
+            dlog('client error');
+        });
+
+        this.socket.on('connect', function() {
+            dlog('client connected');
+        });
+
+    },
+
+    version: function() {
+        this.sendCommand("MAIN VERSION");
+    },
+
+    replySwap: function() {
+        this.replies = !this.replies;
+    },
+
+    quietSwap: function() {
+        this.quiet = !this.quiet;
+    },
+
+    sendCommand: function(cmd) {
+
+        //   dlog('Live?: ' + this.live);
+
+        if (!this.live) {
+            dlog('Re-opening a port to Viz...' + this.ip + ", " + this.port);
+            this.open();
+        }
+
+        if (this.replies  && !this.quiet) {
+            this.counter++;
+            this.socket.write(this.counter + " " + cmd + "\0");
+        } else {
+            if (this.quiet) {
+                this.socket.write("@ " + cmd + "\0");
+            } else  {
+                this.socket.write("-1 " + cmd + "\0");
+            }
+        }
+    },
+
+    end: function() {
+        this.live = false;
+        this.socket.end();
+    },
+
+    close: function() {
+        this.live = false;
+        this.socket.end();
+    },
+
+    destroy: function() {
+        this.live = false;
+        this.socket.destroy();
+    }
 }
 
-io.sockets.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('dataIn', function (data) {
-        console.log(data);
-        viz.sendCommand(data.my);
-    });
-});
-
-var viz = init.Viz;
-viz.open();
-
-console.log('Opening command line...');
-
-rl = readline.createInterface(process.stdin, process.stdout, null);
-rl.setPrompt('> ');
-/*
- rl.question('Which Viz?', function(answer) {
- me.name = answer;
- console.log('Hello', me.name);
- })
-
- */
-console.log('\nBrowse to port ' + portNo);
-console.log('\nWaiting for commands...("quit" to exit)');
-
-rl.on('line', function(cmd) {
-
-    if (cmd === 'quit') {
-        rl.question('Are you sure? (y/n) ', function(answer) {
-            if (answer === 'y') {
-                viz.close();
-                rl.close();
-            } else {
-                rl.prompt();
-            }
-        });
-    } else {
-        // parse the command
-        //
-        if (cmd === "v") {
-            viz.version(false);
-        } else if (cmd === "r") {
-            viz.replySwap();
-        } else if (cmd === "q") {
-            viz.quietSwap();
-        } else if (cmd === "d") {
-            viz.destroy();
-        } else if (cmd === "e") {
-            viz.end();
-        } else {
-            viz.sendCommand(cmd);
-        }
-        //    console.log('You typed:', cmd);
-        //    console.log('Type "quit" to exit');
-        rl.prompt();
+function dlog(data) {
+    if (Viz.logging > 0) {
+        console.log(">>> " + data);
     }
+}
 
-});
-
-rl.on('close', function() {
-    console.log('Bye');
-    process.exit();
-});
-
-rl.prompt();
+module.exports = Viz;

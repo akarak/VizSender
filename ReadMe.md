@@ -9,7 +9,7 @@ Simple web page to show a few buttons.
 Install node
 Run 'npm install' to load all required modules
 
-Check IP address for Viz
+Check IP address for Viz, in the config.js file
 
 Run 'node viz' to get command prompt
 Command on the console,
@@ -22,6 +22,9 @@ Command on the console,
   anything else is sent as a command
 
 Web page
-  Browse to localhost:7788   (check the port)
+  Browse to localhost:7788   (check the port set in the config.js file)
 
   Should see a few buttons for basic test commands.
+  
+  Some buttons added to test election scene
+   
