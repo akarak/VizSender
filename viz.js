@@ -101,7 +101,7 @@ var Viz = {
 
 function dlog(data) {
     if (Viz.logging > 0) {
-        console.log('\x1b[39m\>>>\x1b[37m ' + data);
+        console.log('\x1b[36m\>>>\x1b[37m ' + data);
     }
 }
 
