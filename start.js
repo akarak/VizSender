@@ -28,9 +28,10 @@ function handler (req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
+    console.log('\x1b[32m\socket connection\x1b[37m');
     socket.emit('news', { hello: 'world' });
     socket.on('dataIn', function (data) {
-        console.log(data);
+        console.log('\x1b[32m\ ' + JSON.stringify(data) + '\x1b[37m');
         viz.sendCommand(data.my);
     });
 });
@@ -48,8 +49,21 @@ rl.setPrompt('> ');
  console.log('Hello', me.name);
  })
 
+Colours
+31 red
+32 green
+33 yellow
+34 blue
+35 purple
+36 light blue
+37 white
+38 white
+39 white
+
  */
-console.log('\x1b[31m\nBrowse to port \x1b[37m' + portNo);
+
+
+console.log('\x1b[36m\nBrowse to port \x1b[37m' + portNo);
 console.log('\nWaiting for commands...("quit" to exit)');
 
 rl.on('line', function(cmd) {

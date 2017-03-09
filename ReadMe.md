@@ -1,4 +1,4 @@
-First attempt to connect via web socket to TCP socket.
+Connect via web socket to TCP socket.
 
 Currently creates the Viz socket and web socket and just passes some pre set commands over.
 
@@ -11,7 +11,7 @@ Run 'npm install' to load all required modules
 
 Check IP address for Viz, in the config.js file
 
-Run 'node viz' to get command prompt
+Run 'node start' to get command prompt
 Command on the console,
   v -> request version, should get a reply from Viz
   r -> toggle replies mode
@@ -22,7 +22,7 @@ Command on the console,
   anything else is sent as a command
 
 Web page
-  Browse to localhost:7788   (check the port set in the config.js file)
+  Browse to localhost:xxxx   (check the port set in the config.js file)
 
   Should see a few buttons for basic test commands.
   

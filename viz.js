@@ -2,7 +2,7 @@ var net = require('net');
 
 var Viz = {
 
-    ip: '172.20.69.14',
+    ip: '1.2.3.4',
     port: 6100,
     replies: true,
     quiet: false,
@@ -101,7 +101,7 @@ var Viz = {
 
 function dlog(data) {
     if (Viz.logging > 0) {
-        console.log(">>> " + data);
+        console.log('\x1b[39m\>>>\x1b[37m ' + data);
     }
 }
 
