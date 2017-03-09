@@ -10,9 +10,9 @@
 module.exports = {
     // target viz configuration
     engine: {
-        viz: '192.168.1.23',
+        viz: '10.184.129.1',
         vport: 6100,
-        trio: '192.168.1.24',
+        trio: '10.184.133.7',
         tport: 6200
     },
 

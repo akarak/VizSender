@@ -77,7 +77,7 @@ rl.on('line', function(cmd) {
         } else if (cmd === "e") {
             viz.end();
         } else {
-            viz.sendCommand(cmd);
+            viz.sendCommand(cmd);       // eg MAIN VERSION
         }
         //    console.log('You typed:', cmd);
         //    console.log('Type "quit" to exit');
