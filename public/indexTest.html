@@ -12,6 +12,15 @@
 <input type="button" id="clockstop" class="send" value="clock STOP" />
 <input type="button" id="animOn" class="send" value="bring it ON" />
 <input type="button" id="animOff" class="send" value="push OFF" />
+<input type="button" id="autoOn" class="send" value="auto ON" />
+<input type="button" id="fatOn" class="send" value="fat ON" />
+<input type="button" id="fatOff" class="send" value="fat OFF" />
+<input type="button" id="mayorOn1" class="send" value="mayor ON 1" />
+<input type="button" id="mayorOn2" class="send" value="mayor ON 2" />
+<input type="button" id="mayorOn3" class="send" value="mayor ON 3" />
+<input type="button" id="mayorOn4" class="send" value="mayor ON 4" />
+<input type="button" id="fullfatOn" class="send" value="fullfat ON" />
+<input type="button" id="fullfatOff" class="send" value="fullfat OFF" />
 
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -66,6 +75,40 @@
         $('#animOff').click(function(e) {
             socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT control anim|counter|0'});
         });
+
+        $('#fatOff').click(function(e) {
+            socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT update manualfat|0'});
+        });
+
+        $('#fatOn').click(function(e) {
+            socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT update manualfat|1|MAYOR|AUTO SNAP|2|other text|3'});
+        });
+
+        $('#mayorOn1').click(function(e) {
+            socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT update fullfat|3|MAYOR|FIRST|1|text|1 72%'});
+        });
+
+        $('#mayorOn2').click(function(e) {
+            socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT update fullfat|1|MAYOR|FIRST|2|text|1 12%|2 23%'});
+        });
+
+        $('#mayorOn3').click(function(e) {
+            socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT update fullfat|1|MAYOR|FIRST|3|text|1 12%|2 23%|17 44%'});
+        });
+
+         $('#mayorOn4').click(function(e) {
+            socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT update fullfat|2|LONDON MAYOR|FIRST POLL|4|text|4 12%|15 23%|2 12%|5 23%'});
+        });
+
+        $('#fullfatOn').click(function(e) {
+            socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT control anim|fullfat|1'});
+        });
+
+        $('#fullfatOff').click(function(e) {
+            socket.emit('dataIn', {my: 'RENDERER*MAP SET_STRING_ELEMENT control anim|fullfat|0'});
+        });
+
+
         /*
          CLOCK0*TIME SET 180
          CLOCK0*DIRECTION SET DOWN
